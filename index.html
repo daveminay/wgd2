@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refine 360 | Verified Data Delivered</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@300;400;500;600&family=Courier+Prime:wght@400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f1520;
+      --ink-mid: #2d3a4a;
+      --ink-soft: #5a6b7d;
+      --ink-ghost: #9baab8;
+      --paper: #fafaf8;
+      --paper-off: #f2f1ee;
+      --paper-mid: #e8e6e1;
+      --gold: #b8902a;
+      --gold-lt: #d4a83a;
+      --gold-pale: #f7f0e0;
+      --blue: #1a3a5c;
+      --rule: rgba(15, 21, 32, 0.1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(250, 250, 248, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 64px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .brand-tagline {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-cta {
+      background: var(--ink) !important;
+      color: var(--paper) !important;
+      padding: 10px 22px;
+      font-size: 12px !important;
+      letter-spacing: 0.08em;
+      font-weight: 600 !important;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding-top: 68px;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      padding: 100px 72px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 12%;
+      bottom: 12%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--rule) 30%, var(--rule) 70%, transparent);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: rise 0.6s 0.1s ease forwards;
+    }
+
+    .eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .eyebrow-text {
+      font-family: 'Courier Prime', monospace;
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(46px, 5.5vw, 72px);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: rise 0.6s 0.22s ease forwards;
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-body {
+      font-size: 19px;
+      color: var(--ink-soft);
+      max-width: 460px;
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: rise 0.6s 0.36s ease forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      opacity: 0;
+      animation: rise 0.6s 0.5s ease forwards;
+    }
+
+    .btn-dark {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 13px 28px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--ink);
+      transition: all 0.22s;
+      display: inline-block;
+    }
+
+    .btn-dark:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .btn-stroke {
+      background: transparent;
+      color: var(--ink);
+      padding: 13px 28px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--ink-mid);
+      transition: all 0.22s;
+      display: inline-block;
+    }
+
+    .btn-stroke:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-right {
+      background: var(--ink);
+      padding: 100px 56px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184, 144, 42, 0.1) 0%, transparent 70%);
+    }
+
+    .stat-eyebrow {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: rise 0.6s 0.28s ease forwards;
+    }
+
+    .hero-stats {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat {
+      padding: 26px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      opacity: 0;
+      animation: rise 0.5s ease forwards;
+    }
+
+    .stat:nth-child(1) {
+      animation-delay: 0.38s;
+    }
+
+    .stat:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .stat:nth-child(3) {
+      animation-delay: 0.62s;
+    }
+
+    .stat:nth-child(4) {
+      animation-delay: 0.74s;
+      border-bottom: none;
+    }
+
+    .stat-fig {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 600;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 300;
+    }
+
+    .stat-src {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.22);
+      letter-spacing: 0.1em;
+      margin-top: 3px;
+    }
+
+    .wrap {
+      padding: 96px 64px;
+    }
+
+    .wrap.bg-off {
+      background: var(--paper-off);
+    }
+
+    .s-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+
+    .s-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .k-num {
+      font-family: 'Courier Prime', monospace;
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+    }
+
+    .k-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .k-rule.g {
+      background: var(--gold);
+    }
+
+    .k-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 14px;
+      color: var(--ink-ghost);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .s-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .s-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .s-body {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .prob-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+
+    .prob-card {
+      background: var(--paper);
+      padding: 48px 40px;
+      border-top: 3px solid var(--paper-mid);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .prob-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold-pale);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.4s ease;
+      z-index: 0;
+    }
+
+    .prob-card:hover {
+      border-top-color: var(--gold);
+    }
+
+    .prob-card:hover::after {
+      transform: scaleY(1);
+    }
+
+    .prob-card>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .prob-roman {
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      font-weight: 500;
+      color: var(--paper-mid);
+      line-height: 1;
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+
+    .prob-card:hover .prob-roman {
+      color: rgba(184, 144, 42, 0.18);
+    }
+
+    .prob-sub {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .prob-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .prob-text {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .cons-strip {
+      background: var(--ink);
+      padding: 52px 64px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .cons-hl {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--paper);
+      line-height: 1.25;
+    }
+
+    .cons-hl em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    .fines {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .fine {
+      border-left: 2px solid rgba(184, 144, 42, 0.3);
+      padding-left: 20px;
+    }
+
+    .fine-fig {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .fine-org {
+      font-size: 13px;
+      color: var(--paper);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .fine-info {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.38);
+      font-weight: 300;
+    }
+
+    .alice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .layer-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .layer {
+      background: var(--paper);
+      padding: 30px 36px;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
+      border-left: 3px solid transparent;
+      transition: all 0.24s;
+    }
+
+    .layer:hover {
+      border-left-color: var(--gold);
+      background: var(--gold-pale);
+    }
+
+    .l-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 500;
+      color: var(--paper-mid);
+      line-height: 1;
+      text-align: right;
+      padding-top: 2px;
+      transition: color 0.24s;
+    }
+
+    .layer:hover .l-num {
+      color: rgba(184, 144, 42, 0.3);
+    }
+
+    .l-name {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .l-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .l-text {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .alice-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 76px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .alice-exp {
+      font-family: 'Courier Prime', monospace;
+      font-size: 14px;
+      color: var(--ink-ghost);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .alice-div {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 28px 0;
+    }
+
+    .alice-intro {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 36px;
+    }
+
+    .diff-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      padding: 17px 12px;
+      margin: 0 -12px;
+      border-top: 1px solid var(--rule);
+      transition: background 0.2s;
+    }
+
+    .diff-row:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .diff-row:hover {
+      background: var(--gold-pale);
+    }
+
+    .d-dim {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      color: var(--ink-ghost);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      padding-right: 16px;
+    }
+
+    .d-val {
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .cta-section {
+      background: var(--ink);
+      padding: 108px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(184, 144, 42, 0.15) 30%, rgba(184, 144, 42, 0.15) 70%, transparent);
+    }
+
+    .cta-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 500;
+      color: var(--paper);
+      line-height: 1.06;
+      margin-bottom: 22px;
+    }
+
+    .cta-h em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    .cta-body {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--ink);
+      padding: 13px 28px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.22s;
+      display: inline-block;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-lt);
+      border-color: var(--gold-lt);
+    }
+
+    .btn-light-stroke {
+      background: transparent;
+      color: var(--paper);
+      padding: 13px 28px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.22s;
+      display: inline-block;
+    }
+
+    .btn-light-stroke:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .contact-block {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 28px;
+    }
+
+    .contact-block:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .c-role {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .c-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--paper);
+      margin-bottom: 4px;
+    }
+
+    .c-email {
+      font-family: 'Courier Prime', monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .c-email:hover {
+      color: var(--gold-lt);
+    }
+
+    .c-web {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.22);
+      margin-top: 3px;
+    }
+
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 22px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .f-copy {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.06em;
+    }
+
+    .f-conf {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      color: rgba(192, 57, 43, 0.5);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid rgba(192, 57, 43, 0.25);
+      padding: 4px 10px;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .stagger>* {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .stagger.in>*:nth-child(1) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0s;
+    }
+
+    .stagger.in>*:nth-child(2) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.1s;
+    }
+
+    .stagger.in>*:nth-child(3) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.2s;
+    }
+
+    .stagger.in>*:nth-child(4) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.3s;
+    }
+
+    @media(max-width:960px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left {
+        padding: 80px 24px 48px;
+      }
+
+      .hero-right {
+        display: none;
+      }
+
+      .hero-left::after {
+        display: none;
+      }
+
+      .wrap {
+        padding: 72px 24px;
+      }
+
+      .s-head {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .prob-trio {
+        grid-template-columns: 1fr;
+      }
+
+      .cons-strip {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px 24px;
+      }
+
+      .fines {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .alice-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .cta-section {
+        grid-template-columns: 1fr;
+        padding: 72px 24px;
+      }
+
+      .cta-section::before {
+        display: none;
+      }
+
+      footer {
+        padding: 20px 24px;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="#" class="nav-brand" style="display:flex;align-items:center;gap:14px;text-decoration:none;">
+      <svg width="62" height="26" viewBox="0 0 62 26" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <line x1="0" y1="13" x2="4" y2="9" stroke="#b8902a" stroke-width="1" stroke-linecap="round" opacity="0.28" />
+        <line x1="3" y1="17" x2="7" y2="10" stroke="#b8902a" stroke-width="0.9" stroke-linecap="round" opacity="0.3" />
+        <line x1="6" y1="8" x2="10" y2="17" stroke="#b8902a" stroke-width="0.85" stroke-linecap="round"
+          opacity="0.33" />
+        <line x1="9" y1="19" x2="13" y2="9" stroke="#b8902a" stroke-width="0.9" stroke-linecap="round" opacity="0.38" />
+        <line x1="12" y1="7" x2="16" y2="18" stroke="#b8902a" stroke-width="0.85" stroke-linecap="round"
+          opacity="0.43" />
+        <line x1="15" y1="16" x2="19" y2="8" stroke="#b8902a" stroke-width="0.9" stroke-linecap="round" opacity="0.5" />
+        <line x1="18" y1="9" x2="22" y2="17" stroke="#b8902a" stroke-width="1" stroke-linecap="round" opacity="0.56" />
+        <line x1="22" y1="13" x2="28" y2="13" stroke="#b8902a" stroke-width="1.1" stroke-linecap="round"
+          opacity="0.7" />
+        <line x1="24" y1="10" x2="28" y2="13" stroke="#b8902a" stroke-width="0.7" stroke-linecap="round"
+          opacity="0.35" />
+        <line x1="24" y1="16" x2="28" y2="13" stroke="#b8902a" stroke-width="0.7" stroke-linecap="round"
+          opacity="0.35" />
+        <line x1="28" y1="13" x2="46" y2="13" stroke="#b8902a" stroke-width="2.5" stroke-linecap="round" />
+        <circle cx="54" cy="13" r="5" fill="#b8902a" />
+      </svg>
+      <div>
+        <div class="brand-name">Refine 360</div>
+        <span class="brand-tagline">Verified Data Delivered</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#alice">ALICE Platform</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Request Briefing</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" id="top">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">Refine 360 &middot; Verified Data Delivered</span>
+      </div>
+      <h1 class="hero-h1">
+        Reducing financial<br>
+        crime through<br>
+        <em>verified data</em>
+      </h1>
+      <p class="hero-body">
+        Refine 360 turns raw data into verified intelligence. Our proprietary ALICE platform delivers near real-time
+        verified data via our quantum secure ALICE channel &mdash; enabling financial institutions to reveal hidden
+        risks, satisfy KYC/AML requirements and stay ahead of evolving fraud.
+      </p>
+      <div class="hero-btns">
+        <a href="#alice" class="btn-dark">Explore ALICE</a>
+        <a href="#problem" class="btn-stroke">See the Problem</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="stat-eyebrow">The Scale of the Problem</div>
+        <div class="stat">
+          <div class="stat-fig">$3.1T</div>
+          <div class="stat-desc">In financial crime every year, funding abhorrent actions</div>
+          <div class="stat-src">Nasdaq &middot; 2024 Global Financial Crime Report</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig">$782.9B</div>
+          <div class="stat-desc">From drug trafficking alone &mdash; 25.3% of all illicit flows</div>
+          <div class="stat-src">Nasdaq &middot; 2024 Global Financial Crime Report</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig">$485.6B</div>
+          <div class="stat-desc">Lost to fraud, consumer fraud and romance scams annually</div>
+          <div class="stat-src">Nasdaq &middot; 2024 Global Financial Crime Report</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig">$346.7B</div>
+          <div class="stat-desc">From human trafficking &mdash; 11.2% of all illicit flows</div>
+          <div class="stat-src">Nasdaq &middot; 2024 Global Financial Crime Report</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap bg-off" id="problem">
+    <div class="s-head reveal">
+      <div>
+        <div class="s-kicker">
+          <span class="k-num">01</span>
+          <span class="k-rule"></span>
+          <span class="k-label">The Challenge</span>
+        </div>
+        <h2 class="s-title">Legacy data <em>lacks quality</em></h2>
+      </div>
+      <p class="s-body">
+        Existing vendors are providing data and solutions that are incomplete, antiquated and unverified &mdash; making
+        it impossible to identify high-risk entities or suspicious transactions. Bad data is now a frontline
+        competitive, regulatory and fraud risk for financial institutions.
+      </p>
+    </div>
+
+    <div class="prob-trio stagger">
+      <div class="prob-card">
+        <div class="prob-roman">I</div>
+        <div class="prob-sub">Stale &amp; Fragmented</div>
+        <div class="prob-name">Incomplete</div>
+        <p class="prob-text">Outdated, incomplete sources and siloed disconnected systems with missing relationships.
+          Broken hierarchies with incomplete lineage and structure. Disconnected data enables fraudsters to go
+          undetected across jurisdictions.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-roman">II</div>
+        <div class="prob-sub">Labour &amp; Resource Intensive</div>
+        <div class="prob-name">Antiquated</div>
+        <p class="prob-text">Time-consuming, error-prone processes with duplication and human mistakes. Unscalable
+          systems that cannot keep pace with compliance needs. Rigid infrastructure that is difficult to build on to
+          identify new or evolving threats.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-roman">III</div>
+        <div class="prob-sub">Unchecked &amp; Non-Compliant</div>
+        <div class="prob-name">Unverified</div>
+        <p class="prob-text">No real-time confirmation leaves institutions exposed. System limitations produce false
+          positives and miss real risks. Difficulty satisfying KYC and AML regulatory compliance, potentially resulting
+          in significant fines.</p>
+      </div>
+    </div>
+
+    <div class="cons-strip reveal" style="margin-top:3px;">
+      <div class="cons-hl">Bad data is now a <em>frontline risk</em> &mdash; regulators are cracking down.</div>
+      <div class="fines stagger">
+        <div class="fine">
+          <div class="fine-fig">&pound;42M</div>
+          <div class="fine-org">Major UK Bank</div>
+          <div class="fine-info">Fined over poor handling of financial crime risk</div>
+        </div>
+        <div class="fine">
+          <div class="fine-fig">&pound;21M</div>
+          <div class="fine-org">UK Digital Bank</div>
+          <div class="fine-info">Customers used fictitious addresses including a government building</div>
+        </div>
+        <div class="fine">
+          <div class="fine-fig">Probe</div>
+          <div class="fine-org">Global Investment Bank</div>
+          <div class="fine-info">Under investigation for wealth management client vetting failures</div>
+        </div>
+        <div class="fine">
+          <div class="fine-fig">Rising</div>
+          <div class="fine-org">AI-Driven Fraud</div>
+          <div class="fine-info">Fraudsters now leverage synthetic identities, deep fakes and AI-driven attacks</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="alice" style="background:var(--ink);padding:96px 64px;">
+
+    <!-- Section header -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:80px;" class="reveal">
+      <div>
+        <div class="s-kicker" style="margin-bottom:18px;">
+          <span class="k-num" style="color:var(--gold);font-size:14px;">02</span>
+          <span class="k-rule g"></span>
+          <span class="k-label" style="color:rgba(255,255,255,0.35);font-size:14px;">The Solution</span>
+        </div>
+        <h2
+          style="font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,48px);font-weight:500;line-height:1.1;color:var(--paper);">
+          Refine 360 turns raw data<br>into <em style="font-style:italic;color:var(--gold-lt);">verified
+            intelligence</em>
+        </h2>
+      </div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;">
+        ALICE is the differentiator: near real-time verified data delivered via our quantum-secure ALICE channel. Our
+        client-facing platform bridges information silos, enabling a single 360&deg; view for onboarding, due diligence,
+        KYC compliance and fraud prevention.
+      </p>
+    </div>
+
+    <!-- ALICE wordmark bar -->
+    <div class="reveal"
+      style="border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);padding:36px 0;margin-bottom:72px;display:flex;align-items:center;gap:40px;">
+      <div
+        style="font-family:'Playfair Display',serif;font-size:80px;font-weight:600;color:var(--gold);letter-spacing:-0.02em;line-height:1;flex-shrink:0;">
+        ALICE</div>
+      <div style="width:1px;height:64px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
+      <div>
+        <div
+          style="font-family:'Courier Prime',monospace;font-size:14px;color:rgba(255,255,255,0.4);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;">
+          All Linked Information Connect Exchange</div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.7;max-width:540px;">Refine
+          360's verified data enables users to reveal hidden risks and relationships to mitigate their impact &mdash;
+          complete, AI-enriched and continuously verified.</div>
+      </div>
+    </div>
+
+    <!-- Four-step pipeline -->
+    <div class="stagger"
+      style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px;position:relative;">
+
+      <div
+        style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:28px 24px;transition:background 0.3s,border-color 0.3s;"
+        onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderColor='rgba(201,168,76,0.3)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.07)'">
+        <div
+          style="width:40px;height:40px;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:24px;background:rgba(201,168,76,0.08);">
+          <span style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);">01</span>
+        </div>
+        <div
+          style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;">
+          Ingest</div>
+        <div
+          style="font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--paper);margin-bottom:12px;">
+          External Data Feeds In</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">Untreated data feeds into
+          the R360 Hive, enhanced continuously by Country Net Analysts.</p>
+      </div>
+
+      <div
+        style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:28px 24px;transition:background 0.3s,border-color 0.3s;"
+        onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderColor='rgba(201,168,76,0.3)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.07)'">
+        <div
+          style="width:40px;height:40px;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:24px;background:rgba(201,168,76,0.08);">
+          <span style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);">02</span>
+        </div>
+        <div
+          style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;">
+          Verify</div>
+        <div
+          style="font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--paper);margin-bottom:12px;">
+          ALICE Validates &amp; Enriches</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">ALICE validates, enriches
+          and flags changes. No client cleanup required after purchase.</p>
+      </div>
+
+      <div
+        style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:28px 24px;transition:background 0.3s,border-color 0.3s;"
+        onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderColor='rgba(201,168,76,0.3)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.07)'">
+        <div
+          style="width:40px;height:40px;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:24px;background:rgba(201,168,76,0.08);">
+          <span style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);">03</span>
+        </div>
+        <div
+          style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;">
+          Deliver</div>
+        <div
+          style="font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--paper);margin-bottom:12px;">
+          Secure Data Delivery</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">Delivered via our
+          quantum-secure ALICE channels &mdash; our data is never exposed to the internet.</p>
+      </div>
+
+    </div>
+
+    <div class="stagger" style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-bottom:72px;">
+
+      <div
+        style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:28px 24px;transition:background 0.3s,border-color 0.3s;"
+        onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderColor='rgba(201,168,76,0.3)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.07)'">
+        <div
+          style="width:40px;height:40px;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:24px;background:rgba(201,168,76,0.08);">
+          <span style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);">04</span>
+        </div>
+        <div
+          style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;">
+          Update</div>
+        <div
+          style="font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--paper);margin-bottom:12px;">
+          Data Updates Delivered</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">Ongoing data verification
+          and delivery &mdash; automatic delta updates keep client records accurate without manual intervention.</p>
+      </div>
+
+      <div
+        style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:28px 24px;transition:background 0.3s,border-color 0.3s;"
+        onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderColor='rgba(201,168,76,0.3)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.07)'">
+        <div
+          style="width:40px;height:40px;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:24px;background:rgba(201,168,76,0.08);">
+          <span style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--gold);">05</span>
+        </div>
+        <div
+          style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;">
+          Apply</div>
+        <div
+          style="font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--paper);margin-bottom:12px;">
+          Clients Leverage Continuously</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">Verified data flows into
+          CRM, trading, regulatory and legal systems via R360 Connect.</p>
+      </div>
+
+    </div>
+
+    <!-- Six differentiators — 3 col grid -->
+    <div class="reveal" style="margin-bottom:0;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
+        <span
+          style="font-family:'Courier Prime',monospace;font-size:14px;color:var(--gold);letter-spacing:0.15em;">03</span>
+        <span style="width:28px;height:1px;background:var(--gold);display:inline-block;"></span>
+        <span
+          style="font-family:'Courier Prime',monospace;font-size:14px;color:rgba(255,255,255,0.35);letter-spacing:0.18em;text-transform:uppercase;">What
+          sets ALICE apart</span>
+      </div>
+      <div class="stagger" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+
+        <div
+          style="padding:32px 28px;border-top:2px solid var(--gold);background:rgba(201,168,76,0.05);transition:background 0.3s;"
+          onmouseover="this.style.background='rgba(201,168,76,0.1)'"
+          onmouseout="this.style.background='rgba(201,168,76,0.05)'">
+          <div
+            style="font-family:'Courier Prime',monospace;font-size:10px;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">
+            Complete</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;">Party profiles with
+            ownership hierarchies and UBO information, from public and specialist sources &mdash; trusted inputs that
+            eliminate bad vendor data and silos.</p>
+        </div>
+
+        <div
+          style="padding:32px 28px;border-top:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.03);transition:background 0.3s,border-color 0.3s;"
+          onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderTopColor='var(--gold)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderTopColor='rgba(255,255,255,0.15)'">
+          <div
+            style="font-family:'Courier Prime',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">
+            AI-Enriched</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;">Deep learning reveals
+            unseen fraud and maps relationships humans and legacy tools miss.</p>
+        </div>
+
+        <div
+          style="padding:32px 28px;border-top:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.03);transition:background 0.3s,border-color 0.3s;"
+          onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderTopColor='var(--gold)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderTopColor='rgba(255,255,255,0.15)'">
+          <div
+            style="font-family:'Courier Prime',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">
+            Always Current</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;">Near real-time updates
+            with ALICE and fingerprinting &mdash; fraudsters cannot exploit outdated information.</p>
+        </div>
+
+        <div
+          style="padding:32px 28px;border-top:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.03);transition:background 0.3s,border-color 0.3s;"
+          onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderTopColor='var(--gold)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderTopColor='rgba(255,255,255,0.15)'">
+          <div
+            style="font-family:'Courier Prime',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">
+            Unique IDs</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;">Over half a million
+            company profiles linked by a unique ID approach &mdash; keeping the platform light, flexible and dynamic.
+          </p>
+        </div>
+
+        <div
+          style="padding:32px 28px;border-top:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.03);transition:background 0.3s,border-color 0.3s;"
+          onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderTopColor='var(--gold)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderTopColor='rgba(255,255,255,0.15)'">
+          <div
+            style="font-family:'Courier Prime',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">
+            Symphony</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;">Quantum-secure data
+            highway &mdash; bulk delivery through a separate secure data centre, never exposed to the internet.</p>
+        </div>
+
+        <div
+          style="padding:32px 28px;border-top:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.03);transition:background 0.3s,border-color 0.3s;"
+          onmouseover="this.style.background='rgba(201,168,76,0.07)';this.style.borderTopColor='var(--gold)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderTopColor='rgba(255,255,255,0.15)'">
+          <div
+            style="font-family:'Courier Prime',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">
+            Lower Risk</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;">No blind spots,
+            compliance assured and fines avoided &mdash; lower risk and lower cost for every client.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+  <section class="wrap bg-off" id="about">
+    <div class="s-head reveal">
+      <div>
+        <div class="s-kicker">
+          <span class="k-num">03</span>
+          <span class="k-rule g"></span>
+          <span class="k-label">About Us</span>
+        </div>
+        <h2 class="s-title">Built by people who<br>know the <em>problem</em></h2>
+      </div>
+      <p class="s-body">
+        We are not a technology company that discovered financial services. We are financial services professionals who
+        built the technology the industry actually needs.
+      </p>
+    </div>
+
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+      <div style="background:var(--paper);padding:48px 44px;border-top:3px solid var(--gold);">
+        <p style="font-size:16px;color:var(--ink-soft);line-height:1.85;font-weight:300;">
+          Refine 360 is a data-as-a-service company built by people who have spent careers on both sides of the problem
+          &mdash; inside the world's largest financial institutions and on the front lines of financial crime
+          investigation.
+          Our founders have opened new markets across China and the Middle East, displaced FTSE 100 incumbents with
+          superior compliance products, and led fraud prevention programmes for major metropolitan law enforcement.
+      </div>
+      <div
+        style="background:var(--paper);padding:48px 44px;border-top:3px solid rgba(15,21,32,0.12);display:flex;flex-direction:column;justify-content:space-between;">
+        <p style="font-size:16px;color:var(--ink-soft);line-height:1.85;font-weight:300;">
+          We are not a technology company that discovered financial services. We are financial services professionals
+          who built the technology the industry actually needs.
+        </p>
+        <div style="margin-top:36px;display:flex;gap:40px;padding-top:32px;border-top:1px solid var(--rule);">
+          <div>
+            <div
+              style="font-family:'Playfair Display',serif;font-size:32px;font-weight:500;color:var(--gold);line-height:1;">
+              20+</div>
+            <div
+              style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--ink-ghost);letter-spacing:0.16em;text-transform:uppercase;margin-top:6px;">
+              Years institutional<br>experience</div>
+          </div>
+          <div>
+            <div
+              style="font-family:'Playfair Display',serif;font-size:32px;font-weight:500;color:var(--gold);line-height:1;">
+              3x</div>
+            <div
+              style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--ink-ghost);letter-spacing:0.16em;text-transform:uppercase;margin-top:6px;">
+              Fintech ventures<br>founded</div>
+          </div>
+          <div>
+            <div
+              style="font-family:'Playfair Display',serif;font-size:32px;font-weight:500;color:var(--gold);line-height:1;">
+              5</div>
+            <div
+              style="font-family:'Courier Prime',monospace;font-size:9px;color:var(--ink-ghost);letter-spacing:0.16em;text-transform:uppercase;margin-top:6px;">
+              Global institutions<br>represented</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-section" id="contact">
+    <div class="reveal">
+      <h2 class="cta-h">Committed to<br>reducing <em>financial crime</em></h2>
+      <p class="cta-body">
+        Our leadership team brings decades of financial services and law enforcement experience, and a track record of
+        client success. Get in touch to see how Refine 360's verified data can transform your compliance and fraud
+        prevention.
+      </p>
+      <div class="cta-btns">
+        <a href="/cdn-cgi/l/email-protection#f09499919e91949f879e999e97b0879597958494918491de999f"
+          class="btn-gold">Request a Briefing</a>
+        <a href="https://wegetdata.io" target="_blank" class="btn-light-stroke">wegetdata.io</a>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <svg width="46" height="20" viewBox="0 0 46 20" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <line x1="0" y1="10" x2="3" y2="7" stroke="#d4a83a" stroke-width="0.8" stroke-linecap="round" opacity="0.25" />
+        <line x1="2" y1="13" x2="5" y2="7" stroke="#d4a83a" stroke-width="0.75" stroke-linecap="round" opacity="0.28" />
+        <line x1="4" y1="6" x2="7" y2="13" stroke="#d4a83a" stroke-width="0.7" stroke-linecap="round" opacity="0.3" />
+        <line x1="6" y1="14" x2="9" y2="7" stroke="#d4a83a" stroke-width="0.75" stroke-linecap="round" opacity="0.35" />
+        <line x1="8" y1="6" x2="11" y2="14" stroke="#d4a83a" stroke-width="0.7" stroke-linecap="round" opacity="0.4" />
+        <line x1="10" y1="13" x2="13" y2="7" stroke="#d4a83a" stroke-width="0.75" stroke-linecap="round"
+          opacity="0.46" />
+        <line x1="13" y1="10" x2="17" y2="10" stroke="#d4a83a" stroke-width="1" stroke-linecap="round" opacity="0.65" />
+        <line x1="15" y1="7" x2="17" y2="10" stroke="#d4a83a" stroke-width="0.6" stroke-linecap="round" opacity="0.3" />
+        <line x1="15" y1="13" x2="17" y2="10" stroke="#d4a83a" stroke-width="0.6" stroke-linecap="round"
+          opacity="0.3" />
+        <line x1="17" y1="10" x2="30" y2="10" stroke="#d4a83a" stroke-width="2" stroke-linecap="round" />
+        <circle cx="35" cy="10" r="3.5" fill="#d4a83a" />
+      </svg>
+      <span
+        style="font-family:'Playfair Display',serif;font-size:12px;font-weight:500;color:rgba(255,255,255,0.3);letter-spacing:0.02em;">Refine
+        360</span>
+    </div>
+    <div class="f-copy">&copy; 2026 We Get Data Ltd. &middot; Isle of Man</div>
+    <div class="f-conf"></div>
+  </footer>
+
+  <script>
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".reveal,.stagger").forEach(function (el) {
+      observer.observe(el);
+    });
+  </script>
+</body>
+
+</html>
