@@ -718,6 +718,98 @@
       flex-wrap: wrap;
     }
 
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-form .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .contact-form label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(184, 144, 42, 0.25);
+      border-radius: 2px;
+      padding: 11px 14px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 14px;
+      color: var(--paper);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: rgba(184, 144, 42, 0.6);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact-form .btn-submit {
+      align-self: flex-start;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 13px 32px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+      font-family: 'Instrument Sans', sans-serif;
+    }
+
+    .contact-form .btn-submit:hover {
+      background: var(--gold-lt);
+    }
+
+    .contact-form .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .form-success {
+      display: none;
+      padding: 20px;
+      border: 1px solid rgba(184, 144, 42, 0.35);
+      border-radius: 2px;
+      background: rgba(184, 144, 42, 0.06);
+    }
+
+    .form-success p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin: 0;
+    }
+
     .btn-gold {
       background: var(--gold);
       color: var(--ink);
@@ -1401,6 +1493,34 @@
       </p>
     </div>
 
+    <div class="reveal">
+      <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="86df8589-f781-4bb7-b96e-f17dd2316f1b">
+        <input type="hidden" name="subject" value="New enquiry via wegetdata.io">
+        <input type="checkbox" name="botcheck" style="display:none;">
+        <div class="form-field">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" placeholder="jane@example.com" required>
+        </div>
+        <div class="form-field">
+          <label for="cf-org">Organisation</label>
+          <input type="text" id="cf-org" name="organisation" placeholder="Your organisation" required>
+        </div>
+        <div class="form-field">
+          <label for="cf-comments">Comments <span style="color:rgba(255,255,255,0.25);font-size:8px;">(optional)</span></label>
+          <textarea id="cf-comments" name="comments" placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send message</button>
+      </form>
+      <div class="form-success" id="form-success">
+        <p>Thank you — we'll be in touch shortly.</p>
+      </div>
+    </div>
+
   </div>
 
   <footer>
@@ -1440,6 +1560,37 @@
     document.querySelectorAll(".reveal,.stagger").forEach(function (el) {
       observer.observe(el);
     });
+  </script>
+
+  <script>
+    var contactForm = document.getElementById('contact-form');
+    var formSuccess = document.getElementById('form-success');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = contactForm.querySelector('.btn-submit');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (res) {
+          if (res.ok) {
+            contactForm.style.display = 'none';
+            formSuccess.style.display = 'block';
+          } else {
+            btn.disabled = false;
+            btn.textContent = 'Send message';
+            alert('Something went wrong. Please try again.');
+          }
+        }).catch(function () {
+          btn.disabled = false;
+          btn.textContent = 'Send message';
+          alert('Something went wrong. Please try again.');
+        });
+      });
+    }
   </script>
 </body>
 
